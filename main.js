@@ -100,6 +100,26 @@ let formData = [
 let formHTML = document.getElementById('fields');
 
 for (let i = 0; i < formData.length; i++) {
+  if (formData[i].type === 'textarea'){
+    let newInput = document.createElement('textarea');
+    newInput.placeholder = formData[i].label;
+    formHTML.appendChild(newInput);
+  }
+  else if (formData[i].type ==='select'){
+    let newInput = document.createElement('select')
+    let defaultSelect = document.createElement('option')
+    let defaultSelectText = document.createTextNode('Select an Option')
+    defaultSelect.appendChild(defaultSelectText);
+    newInput.appendChild(defaultSelect);
+    for (var a = 0; a < formData[i].options.length; a++) {
+      let newOption = document.createElement('option');
+      let newOptionText = document.createTextNode(formData[i].options[a].label);
+      newOption.appendChild(newOptionText);
+      newInput.appendChild(newOption);
+    }
+    formHTML.appendChild(newInput);
+  }
+  else {
   let newInput = document.createElement('input');
   newInput.setAttribute('type', formData[i].type);
   newInput.setAttribute('placeholder', formData[i].label);
@@ -107,6 +127,10 @@ for (let i = 0; i < formData.length; i++) {
   newInput.setAttribute('icon', formData[i].icon);
   newInput.setAttribute('options', formData[i].options);
   formHTML.appendChild(newInput);
-  // document.getElementById('type').placeholder = "";
 }
-  // document.getElementById('type').placeholder = "label";
+}
+
+// for (var i = 0; i < formData.length; i++) {
+//   let select = document.createElement('select')
+//   formHTML.appendChild(select)
+//   select.setAttribute('options', formData[i].dropdown)
